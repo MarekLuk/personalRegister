@@ -1,22 +1,61 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
-//first attempt
+//second attempt
 public class Worker
 {
     static void Main()
     {
-        Dictionary<string, int> workerList = new Dictionary<string, int>();    
+        Dictionary<string, int> workerList = new Dictionary<string, int>();
+        while (true)
+        {
+            Console.WriteLine("Enter worker name: (enter 'exit' to print register) ");
+            string workerName = Console.ReadLine().Trim();
 
-        Console.WriteLine("Enter worker name: ");
-        string workerName = Console.ReadLine();
-        Console.WriteLine("Enter salary: ");
-        int workerSalary = int.Parse(Console.ReadLine());
-        workerList.Add(workerName, workerSalary);
+            if (workerName.ToLower() == "exit")
+            {
+                break;
+            }
 
+            if (string.IsNullOrEmpty(workerName))
+            {
+                Console.WriteLine("Wrong name. Enter correct name!");
+                continue;
+
+            }
+            if (workerList.ContainsKey(workerName))
+            {
+                Console.WriteLine($"Worker {workerName} already exist. Enter new worker");
+                continue;
+            }
+
+
+
+            int workerSalary = 0; ;
+            bool isValidSalary = false;
+            while (!isValidSalary)
+            {
+                Console.WriteLine("Enter worker salary: ");
+                if (int.TryParse(Console.ReadLine(), out workerSalary))
+
+                {
+                    isValidSalary = true;
+                }
+
+                else
+                {
+                    Console.WriteLine("Wrong input. Enter correct salary!");
+
+                }
+
+
+            }
+            workerList.Add(workerName, workerSalary);
+        }      
         
-        foreach (KeyValuePair<string, int> item in workerList) {
-            Console.WriteLine("Worker :{0}, has salary : {1}", item.Key, item.Value);
-        }
+          foreach (KeyValuePair<string, int> item in workerList) {
+          Console.WriteLine("Worker :{0}, has salary : {1}", item.Key, item.Value);
+       }
     }
 }
